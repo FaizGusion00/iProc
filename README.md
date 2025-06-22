@@ -1,4 +1,4 @@
-# iProc - Sistem Pengurusan Perolehan
+# iProc - Sistem Pengurusan 
 
 <div align="center">
   <img src="assets/img/item/logo3.png" alt="iProc Logo" width="200">
@@ -308,23 +308,6 @@ tar -czf backup_files_$(date +%Y%m%d).tar.gz /path/to/iproc
 - Gunakan meaningful variable names
 - Tulis comment dalam Bahasa Malaysia
 - Test thoroughly sebelum submit
-
-## 📝 Changelog
-
-Lihat [CHANGELOG.md](CHANGELOG.md) untuk rekod perubahan terperinci.
-
-### Version 1.0.0 (2022-02-11)
-- ✅ Keluaran awal
-- ✅ Sistem autentikasi asas
-- ✅ Role-based access control
-- ✅ Modul pengurusan utama
-- ✅ Dashboard responsif
-
-## 🐛 Known Issues
-
-- [ ] Export PDF untuk jadual besar mungkin timeout
-- [ ] Session timeout tidak memberikan warning
-- [ ] Mobile responsiveness boleh diperbaiki untuk tablet
 
 ### Organisasi
 **Unit Perolehan**  
