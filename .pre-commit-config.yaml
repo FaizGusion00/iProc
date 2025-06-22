@@ -1,0 +1,96 @@
+# Pre-commit hooks untuk keselamatan iProc
+# Install: pip install pre-commit && pre-commit install
+
+repos:
+  # Detect secrets and sensitive information
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: v1.4.0
+    hooks:
+      - id: detect-secrets
+        args: ['--baseline', '.secrets.baseline']
+        exclude: |
+          (?x)^(
+            .*\.md$|
+            .*\.txt$|
+            package-lock\.json$
+          )$
+
+  # Check for merge conflicts
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: check-merge-conflict
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-json
+
+  # Custom hooks untuk check patterns sensitif Malaysia
+  - repo: local
+    hooks:
+      # Check for Malaysian IC patterns
+      - id: check-ic-numbers
+        name: Check for Malaysian IC Numbers
+        entry: bash -c 'if grep -r "\b\d\{6\}-\d\{2\}-\d\{4\}\b\|\b\d\{12\}\b" --exclude-dir=.git --exclude="*.md" .; then echo "❌ FOUND IC NUMBERS! Remove before commit."; exit 1; fi'
+        language: system
+        pass_filenames: false
+
+      # Check for government email addresses
+      - id: check-gov-emails
+        name: Check for Government Email Addresses
+        entry: bash -c 'if grep -r "@anm\.gov\.my\|@1govuc\.gov\.my\|@gov\.my" --exclude-dir=.git --exclude="README.md" --exclude="SECURITY.md" .; then echo "❌ FOUND GOVERNMENT EMAILS! Remove before commit."; exit 1; fi'
+        language: system
+        pass_filenames: false
+
+      # Check for database config files
+      - id: check-db-config
+        name: Check for Database Config Files
+        entry: bash -c 'if [ -f "database/config.php" ]; then echo "❌ FOUND database/config.php! This should not be committed."; exit 1; fi'
+        language: system
+        pass_filenames: false
+
+      # Check for hardcoded passwords
+      - id: check-passwords
+        name: Check for Hardcoded Passwords
+        entry: bash -c 'if grep -r "password.*=.*['\''\"]\w\{6,\}['\''\"]\|pass.*=.*['\''\"]\w\{6,\}['\''\"]\|pwd.*=.*['\''\"]\w\{6,\}['\''\"]\|secret.*=.*['\''\"]\w\{6,\}['\''\"]\|api_key.*=.*['\''\"]\w\{6,\}['\''\"]\|token.*=.*['\''\"]\w\{6,\}['\''\"]\|key.*=.*['\''\"]\w\{6,\}['\''\"]\|ASD@asd123123\|TukarPassword123" --exclude-dir=.git --exclude="*.md" --exclude="*_clean.sql" --exclude="*.example.*" .; then echo "❌ FOUND HARDCODED CREDENTIALS! Remove before commit."; exit 1; fi'
+        language: system
+        pass_filenames: false
+
+      # Check for phone numbers (Malaysian format)
+      - id: check-phone-numbers
+        name: Check for Malaysian Phone Numbers
+        entry: bash -c 'if grep -r "\b0\d\{2\}-\d\{7,8\}\b\|\b\+60\d\{8,9\}\b\|\b01\d\{8,9\}\b" --exclude-dir=.git --exclude="*.md" --exclude="*_clean.sql" .; then echo "❌ FOUND PHONE NUMBERS! Remove before commit."; exit 1; fi'
+        language: system
+        pass_filenames: false
+
+      # Check for sensitive file patterns
+      - id: check-sensitive-files
+        name: Check for Sensitive File Patterns
+        entry: bash -c 'find . -type f \( -name "*.backup" -o -name "*.bak" -o -name "*.old" -o -name "*_production.sql" -o -name "*_live.sql" -o -name "*_real_data.*" -o -name "*.env" -o -name "*secret*" -o -name "*credential*" -o -name "*private*" \) -not -path "./.git/*" | head -10 | while read file; do echo "❌ FOUND SENSITIVE FILE: $file"; done; if find . -type f \( -name "*.backup" -o -name "*.bak" -o -name "*.old" -o -name "*_production.sql" -o -name "*_live.sql" -o -name "*_real_data.*" -o -name "*.env" -o -name "*secret*" -o -name "*credential*" -o -name "*private*" \) -not -path "./.git/*" | grep -q .; then exit 1; fi'
+        language: system
+        pass_filenames: false
+
+  # PHP specific checks
+  - repo: local
+    hooks:
+      # Check PHP syntax
+      - id: php-lint
+        name: PHP Lint
+        entry: bash -c 'find . -name "*.php" -not -path "./.git/*" -exec php -l {} \; | grep -v "No syntax errors detected" || true'
+        language: system
+        pass_filenames: false
+
+      # Check for SQL injection patterns
+      - id: check-sql-injection
+        name: Check for Potential SQL Injection
+        entry: bash -c 'if grep -r "mysql_query\|mysqli_query.*\$\|query.*\$_" --include="*.php" --exclude-dir=.git .; then echo "⚠️ WARNING: Potential SQL injection found. Review code carefully."; fi'
+        language: system
+        pass_filenames: false
+        verbose: true
+
+# Fail-fast mode - stop on first failure
+fail_fast: false
+
+# Default language version
+default_language_version:
+  python: python3 

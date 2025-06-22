@@ -97,6 +97,8 @@
 
 ## 🚀 Panduan Pemasangan
 
+⚠️ **BACA DAHULU**: [SECURITY.md](SECURITY.md) untuk panduan keselamatan kritikal!
+
 ### 1. Clone Repository
 ```bash
 git clone https://github.com/your-organization/iproc.git
@@ -110,8 +112,8 @@ mysql -u root -p
 CREATE DATABASE iproc CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 exit
 
-# Import struktur database
-mysql -u root -p iproc < database/iproc.sql
+# Import struktur database (GUNA versi yang selamat)
+mysql -u root -p iproc < database/iproc_clean.sql
 ```
 
 ### 3. Konfigurasi Database
@@ -182,14 +184,18 @@ chmod -R 777 /path/to/iproc/assets/uploads  # Jika folder upload wujud
 Selepas pemasangan, gunakan akaun default berikut:
 
 **Admin:**
-- IC: `990917146163`
-- Kata Laluan: `ASD@asd123123`
+- IC: `000000000000` (untuk testing sahaja)
+- Kata Laluan: `TukarPassword123!`
 
 **Pengguna Ujian:**
-- IC: `112233445566` (Abu Bakar Bin Ali)
-- Kata Laluan: `ASD@asd123123`
+- IC: `111111111111` (untuk testing sahaja)
+- Kata Laluan: `TukarPassword123!`
 
-⚠️ **PENTING**: Tukar kata laluan default selepas login pertama!
+⚠️ **KRITIKAL**: 
+- Data ini adalah DUMMY untuk development
+- JANGAN guna untuk production
+- Lihat `database/iproc_clean.sql` untuk data testing yang selamat
+- Baca [SECURITY.md](SECURITY.md) untuk panduan keselamatan lengkap
 
 ### Tetapan Keselamatan
 1. Aktifkan HTTPS untuk production
@@ -327,6 +333,21 @@ Jabatan Akauntan Negara Malaysia
 
 📧 Email: [support@anm.gov.my]  
 🌐 Website: [https://www.anm.gov.my]
+
+## 🔒 Keselamatan
+
+⚠️ **PENTING**: Projek ini mengandungi sistem kerajaan yang sensitif.
+
+### Sebelum Contribute:
+- **WAJIB** baca [SECURITY.md](SECURITY.md) 
+- Install pre-commit hooks: `pip install pre-commit && pre-commit install`
+- JANGAN commit data sebenar atau credentials
+- Guna `database/config.example.php` sebagai template
+
+### Jika Menemui Isu Keselamatan:
+- **JANGAN** buat public issue
+- Hubungi security team secara private
+- Report melalui channel yang selamat
 
 ## 📄 License
 

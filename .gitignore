@@ -42,6 +42,118 @@ node_modules
 gulpfile.tmp.*
 
 ################################################################################
+############################### SECURITY & CONFIDENTIAL ######################
+
+# Database Configuration (KRITIKAL - JANGAN COMMIT!)
+database/config.php
+config/database.php
+db_config.php
+database_config.php
+
+# Environment Files
+.env
+.env.local
+.env.production
+.env.staging
+.env.development
+*.env
+
+# Sensitive Configuration Files
+config/secrets.php
+config/keys.php
+config/api.php
+config/credentials.php
+*/config/local.php
+*/config/production.php
+
+# Government Sensitive Data
+# IC Numbers, Passwords, dan maklumat peribadi
+sensitive_data/
+confidential/
+rahsia/
+*.sensitive
+*.confidential
+
+# Database Dumps dengan Data Sebenar
+*.sql.backup
+*_production.sql
+*_live.sql
+*_real_data.sql
+database_backup_*.sql
+backup_*.sql
+dump_*.sql
+
+# Session Files
+sessions/
+tmp/sessions/
+temp/sessions/
+*.session
+
+# Upload Files (mungkin mengandungi dokumen sensitif)
+uploads/
+files/
+documents/
+attachments/
+storage/app/
+
+# Log Files (mungkin mengandungi maklumat sensitif)
+*.log
+logs/
+log/
+storage/logs/
+var/log/
+error_log
+access_log
+php_errors.log
+
+# Backup Files
+*.backup
+*.bak
+*.old
+*.orig
+backup/
+backups/
+*Backup.php
+*_backup.*
+
+# Cache Files
+cache/
+tmp/
+temp/
+storage/cache/
+storage/framework/cache/
+storage/framework/sessions/
+storage/framework/views/
+
+# IDE/Editor Files yang mungkin ada maklumat sensitif
+.vscode/settings.json
+.idea/workspace.xml
+*.swp
+*.swo
+*~
+
+# SSL Certificates & Keys
+*.pem
+*.key
+*.crt
+*.cer
+*.p12
+*.pfx
+ssl/
+certificates/
+
+# API Keys & Tokens
+api_keys.txt
+tokens.txt
+secrets.txt
+credentials.txt
+
+# Test Data dengan maklumat sebenar
+test_data_real/
+real_test_data/
+*_real_data.*
+
+################################################################################
 ############################### DEVELOPMENT_ONLY ###############################
 
 # Excludes generated 
@@ -57,3 +169,54 @@ gulpfile.tmp.*
 /html-starter
 /html-demo
 /html-starter-demo
+
+################################################################################
+############################### ADDITIONAL SECURITY ##########################
+
+# PHP Specific Security Files
+composer.phar
+auth.json
+
+# Laravel/Framework Specific (jika digunakan)
+.env.example
+storage/
+bootstrap/cache/
+
+# WordPress Specific (jika digunakan)
+wp-config.php
+wp-config-local.php
+
+# Additional Sensitive Patterns
+*secret*
+*password*
+*credential*
+*private*
+*confidential*
+*rahsia*
+*sulit*
+
+# Email Configuration
+mail_config.php
+email_config.php
+smtp_config.php
+
+# Government Specific
+gov_config.php
+government_data/
+kerajaan_data/
+data_kerajaan/
+maklumat_sulit/
+
+# User Data Files
+user_exports/
+pengguna_data/
+staff_data/
+personal_data/
+
+################################################################################
+# NOTA PENTING:
+# 1. Fail database/config.php mengandungi kredential database - JANGAN COMMIT!
+# 2. Sebarang fail yang mengandungi password atau API keys
+# 3. Data sebenar pengguna kerajaan atau maklumat sulit
+# 4. Backup database dengan data production
+################################################################################
