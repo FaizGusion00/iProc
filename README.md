@@ -320,13 +320,6 @@ Lihat [CHANGELOG.md](CHANGELOG.md) untuk rekod perubahan terperinci.
 - [ ] Session timeout tidak memberikan warning
 - [ ] Mobile responsiveness boleh diperbaiki untuk tablet
 
-## 📞 Support & Contact
-
-### Tim Development
-- **Lead Developer**: [Nama Developer]
-- **Database Administrator**: [Nama DBA]
-- **System Administrator**: [Nama SysAdmin]
-
 ### Organisasi
 **Unit Perolehan**  
 Bahagian Pembangunan Perakaunan Pengurusan  
@@ -347,8 +340,3 @@ Projek ini dilesenkan di bawah MIT License - lihat fail [LICENSE](LICENSE) untuk
 - **Bootstrap Team** - Responsive framework
 - **PHP Community** - Continuous support dan documentation
 
----
-
-<div align="center">
-  <b>Dibangunkan dengan ❤️ untuk Kerajaan Malaysia</b>
-</div> 
